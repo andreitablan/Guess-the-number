@@ -8,29 +8,39 @@ print("Welcome!")
 alias = input("Please type your name:")
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((host, port))
+client_open = True
 
 
 def client_receive():
+    global client_open
     while True:
-        message = client.recv(1024).decode('utf-8')
-        if message == "alias?":
-            client.send(alias.encode('utf-8'))
-
-        elif message.split(' ')[0] == "Congratulations!":
-            print(message)
-            print('Thank you for playing the game!')
-            client.send("exit".encode('utf-8'))
+        try:
+            message = client.recv(1024).decode('utf-8')
+            if message == "alias?":
+                client.send(alias.encode('utf-8'))
+            elif message.split(' ')[0] == "Congratulations!":
+                print(message)
+                client_open = False
+                break
+            else:
+                print(message)
+        except:
+            print("The server is closed")
+            client.close()
             break
-        else:
-            print(message)
     client.close()
-    exit(0)
 
 
 def client_send():
-    while True:
-        message = input()
-        client.send(message.encode('utf-8'))
+    while client_open is True:
+        try:
+            message = input()
+            client.send(message.encode('utf-8'))
+        except:
+            print("The server is closed")
+            client.close()
+            break
+    client.close()
 
 
 if __name__ == '__main__':
