@@ -19,6 +19,7 @@ def client_receive():
         elif message.split(' ')[0] == "Congratulations!":
             print(message)
             print('Thank you for playing the game!')
+            client.send("exit".encode('utf-8'))
             break
         else:
             print(message)
