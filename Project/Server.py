@@ -47,10 +47,36 @@ def handle_client(client):
                 scores.append(current_score)
             max_score = " ".join(['Congratulations! The maximum score is', str(min(scores))])
             client.send(max_score.encode('utf-8'))
-
-        else:
-            client.send(b"Not implemented yet")
-
+        elif opponent == "player" and clients[1]:
+            client.send('How many rounds would you like to play?'.encode('utf-8'))
+            scores = []
+            number_of_rounds = int(client.recv(1024).decode('utf-8'))
+            for rounds in range(0, number_of_rounds):
+                guessed = False
+                current_score = 1
+                clients[1].send(b"Give a number between 0 and 50, 0 and 50 included:")
+                number_from_client = int(clients[1].recv(1024).decode('utf-8'))
+                print(number_from_client)
+                client.send(b"Give a number between 0 and 50, 0 and 50 included:")
+                while guessed is False:
+                    number = client.recv(1024).decode('utf-8')
+                    print(number)
+                    if int(number) == number_from_client:
+                        guessed = True
+                        send_all_clients(b"The guess is correct!")
+                        break
+                    elif int(number) < number_from_client:
+                        send_all_clients(b"The number is that has to be guessed is lower...")
+                        current_score = current_score + 1
+                    elif int(number) > number_from_client:
+                        send_all_clients(b"The number is that has to be guessed is higher...")
+                        current_score = current_score + 1
+                scores.append(current_score)
+            max_score = " ".join(['Congratulations! The maximum score is', str(min(scores))])
+            send_all_clients(max_score.encode('utf-8'))
+    elif client == clients[1]:
+        while True:
+            continue
         '''
             try:
                 message = client.recv(1024).decode('utf-8')

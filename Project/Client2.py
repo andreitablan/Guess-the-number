@@ -1,5 +1,6 @@
 import socket, time
 import threading
+import sys
 
 host = '127.0.0.1'
 port = 22000
@@ -11,16 +12,18 @@ client.connect((host, port))
 
 def client_receive():
     while True:
-        try:
-            message = client.recv(1024).decode('utf-8')
-            if message == "alias?":
-                client.send(alias.encode('utf-8'))
-            else:
-                print(message)
-        except:
-            print('Error!')
-            client.close()
+        message = client.recv(1024).decode('utf-8')
+        if message == "alias?":
+            client.send(alias.encode('utf-8'))
+
+        elif message.split(' ')[0] == "Congratulations!":
+            print(message)
+            print('Thank you for playing the game!')
             break
+        else:
+            print(message)
+    client.close()
+    exit(0)
 
 
 def client_send():

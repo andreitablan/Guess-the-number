@@ -19,11 +19,11 @@ def client_receive():
         elif message.split(' ')[0] == "Congratulations!":
             print(message)
             print('Thank you for playing the game!')
-            client.close()
-            exit(0)
             break
         else:
             print(message)
+    client.close()
+    exit(0)
 
 
 def client_send():
