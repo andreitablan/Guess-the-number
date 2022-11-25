@@ -17,7 +17,7 @@ număr de încercări necesar descoperirii numărului.
 decizie luată de server fiind afișată ambilor participanți – ex. Client 1 ghiceste ->
 notificați ambii participanți că jocul s-a terminat, cu Scorul și Scorul Maxim aferent) .
 
-#####Output:
+##### Output:
 - Jocul 
 
 ###### Relizator: Tablan Andrei
