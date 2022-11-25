@@ -17,7 +17,7 @@ def send_all_clients(message):
     for client in clients:
         client.send(message)
 
-
+#impartit in functii distincte
 def handle_client(client):
     global server_open
     if client == clients[0]:
@@ -31,7 +31,6 @@ def handle_client(client):
             else:
                 client.send(b"Please insert either <bot> or <player>:")
 
-        # intr un while sa nu accepte alt mesaj.
         if opponent == "bot":
             client.send(b"How many rounds would you like to play?")
             scores = []
@@ -42,6 +41,7 @@ def handle_client(client):
                 generated_number = randint(0, 50)
                 print(generated_number)
                 client.send(b"Give a number between 0 and 50, 0 and 50 included:")
+                #sa fie inputul numar.
                 while guessed is False:
                     number = client.recv(1024).decode('utf-8')
                     print(number)
@@ -73,6 +73,7 @@ def handle_client(client):
                 guessed = False
                 current_score = 1
                 correct_number = False
+                number_from_client = -1
                 while correct_number is False:
                     clients[1].send(b"Give a number between 0 and 50, 0 and 50 included:")
                     number_from_client = int(clients[1].recv(1024).decode('utf-8'))
@@ -136,4 +137,3 @@ def receive():
 
 if __name__ == '__main__':
     receive()
-
