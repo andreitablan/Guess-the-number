@@ -17,7 +17,8 @@ def send_all_clients(message):
     for client in clients:
         client.send(message)
 
-#impartit in functii distincte
+
+# impartit in functii distincte
 def handle_client(client):
     global server_open
     if client == clients[0]:
@@ -32,18 +33,32 @@ def handle_client(client):
                 client.send(b"Please insert either <bot> or <player>:")
 
         if opponent == "bot":
-            client.send(b"How many rounds would you like to play?")
             scores = []
-            number_of_rounds = int(client.recv(1024).decode('utf-8'))
+            how_many_rounds=False
+            number_of_rounds=0
+            client.send('How many rounds would you like to play (give a number between 1 and 10)?'.encode('utf-8'))
+            while how_many_rounds is False:
+                number_of_rounds = client.recv(1024).decode('utf-8')
+                if number_of_rounds.isnumeric() and 10 >= int(number_of_rounds) >= 1:
+                    how_many_rounds = True
+                else:
+                    client.send(b"Not a valid input! Please send a number between 1 and 10:")
+            number_of_rounds = int(number_of_rounds)
             for rounds in range(0, number_of_rounds):
                 guessed = False
                 current_score = 1
                 generated_number = randint(0, 50)
                 print(generated_number)
                 client.send(b"Give a number between 0 and 50, 0 and 50 included:")
-                #sa fie inputul numar.
                 while guessed is False:
-                    number = client.recv(1024).decode('utf-8')
+                    is_number = False
+                    number = 0
+                    while is_number is False:
+                        number = client.recv(1024).decode('utf-8')
+                        if number.isnumeric() and 50 >= int(number) >= 0:
+                            is_number = True
+                        else:
+                            client.send(b"Not a valid input! Please send a number between 0 and 50:")
                     print(number)
                     if int(number) == generated_number:
                         guessed = True
@@ -65,9 +80,17 @@ def handle_client(client):
 
         elif opponent == "player" and clients[1]:
             clients[1].send(b"Please wait until the other player decides how many rounds the game will have..")
-            client.send('How many rounds would you like to play?'.encode('utf-8'))
+            number_of_rounds = 0
+            how_many_rounds = False
+            client.send('How many rounds would you like to play (give a number between 1 and 10)?'.encode('utf-8'))
+            while how_many_rounds is False:
+                number_of_rounds = client.recv(1024).decode('utf-8')
+                if number_of_rounds.isnumeric() and 10 >= int(number_of_rounds) >= 1:
+                    how_many_rounds = True
+                else:
+                    client.send(b"Not a valid input! Please send a number between 1 and 10:")
+                number_of_rounds = int(number_of_rounds)
             scores = []
-            number_of_rounds = int(client.recv(1024).decode('utf-8'))
             for rounds in range(0, number_of_rounds):
                 client.send(b"Please wait until the other player gives a number")
                 guessed = False
@@ -84,7 +107,14 @@ def handle_client(client):
                         correct_number = True
                 client.send(b"Give a number between 0 and 50, 0 and 50 included:")
                 while guessed is False:
-                    number = client.recv(1024).decode('utf-8')
+                    is_number = False
+                    number = 0
+                    while is_number is False:
+                        number = client.recv(1024).decode('utf-8')
+                        if number.isnumeric() and 50 >= int(number) >= 0:
+                            is_number = True
+                        else:
+                            client.send(b"Not a valid input! Please send a number between 0 and 50:")
                     print(number)
                     if int(number) == number_from_client:
                         guessed = True
