@@ -21,4 +21,4 @@ notificați ambii participanți că jocul s-a terminat, cu Scorul și Scorul Max
 ##### Output:
 - Jocul 
 
-###### Relizator: Tablan Andrei
+###### Relizator: [Tablan Andrei](https://github.com/andreitablan "Andrei Tablan")
