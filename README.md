@@ -1,5 +1,5 @@
 # GUESS THE NUMBER
-### [Exemplu Video](https://youtu.be/OTGeD9U5ZVc)
+### [Rulare video](https://youtu.be/OTGeD9U5ZVc)
 - Se va crea o aplicație de tip server - client care va reproduce jocul Ghicește Numărul.
 - Numărul ce trebuie ghicit se va afla în intervalul [0, 50]. Vor exista 2 posibilități: fie
 numărul va fi generat de server, fie va fi dat de către un alt client - în situația în care vor
