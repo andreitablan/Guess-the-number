@@ -4,7 +4,7 @@ import inspect
 from random import randint
 
 host = '127.0.0.1'
-port = 22000
+port = 22001
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((host, port))
 server.listen(2)
@@ -131,7 +131,7 @@ def guess_number(number_to_be_guessed):
     """
     guessed = False
     current_score = 1
-    print("The number to be guessed is: " + number_to_be_guessed)
+    print("The number to be guessed is: " + str(number_to_be_guessed))
     clients[0].send(b"Give a number between 0 and 50, 0 and 50 included:")
     while guessed is False:
         is_number = False
@@ -142,7 +142,7 @@ def guess_number(number_to_be_guessed):
                 is_number = True
             else:
                 clients[0].send(b"Not a valid input! Please send a number between 0 and 50:")
-        print("The client's guess is" + number)
+        print("The client's guess is: " + str(number))
         if int(number) == number_to_be_guessed:
             guessed = True
             clients[0].send(b"The number is correct!")
@@ -217,8 +217,7 @@ def handle_client1():
     Returns:nothing.
 
     """
-    global server_open
-    opponent = get_opponent_from_client1(clients[0])
+    opponent = get_opponent_from_client1()
 
     if opponent == "bot":
         set_global_opponent(1)
@@ -231,6 +230,8 @@ def handle_client1():
         except:
             clients[0].send(b"The other client is not connected!")
             print("The client 1 wanted to play with another player, but he is not connected!")
+            global server_open
+            server_open = False
             return
 
 
@@ -282,7 +283,7 @@ def receive():
             thread.start()
             server_open = False
             break
-    print("Server closed!")
+    print("Server not accepting more clients!")
     server.close()
 
 

@@ -2,7 +2,7 @@ import socket
 import threading
 
 host = '127.0.0.1'
-port = 22000
+port = 22001
 print("Welcome!")
 alias = input("Please type your name:")
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
