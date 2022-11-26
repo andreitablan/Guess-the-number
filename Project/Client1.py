@@ -1,6 +1,5 @@
-import socket, time
+import socket
 import threading
-import sys
 
 host = '127.0.0.1'
 port = 22000
@@ -12,6 +11,12 @@ client_open = True
 
 
 def client_receive():
+    """
+
+    Handles the messages that the client receives from the server.
+    Returns: nothing
+
+    """
     global client_open
     while True:
         try:
@@ -36,6 +41,11 @@ def client_receive():
 
 
 def client_send():
+    """
+    Handles the messages that the client wants to send to the server.
+    Returns: nothing
+
+    """
     while client_open is True:
         try:
             message = input()
