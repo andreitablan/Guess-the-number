@@ -18,7 +18,11 @@ def client_receive():
             message = client.recv(1024).decode('utf-8')
             if message == "alias?":
                 client.send(alias.encode('utf-8'))
-            elif message.split(' ')[0] == "Congratulations!":
+            elif message.split(' ')[0] == "Congratulations!" or message == "The other client is not connected!":
+                print(message)
+                client_open = False
+                break
+            elif message == "The player one has decided to play with a bot!":
                 print(message)
                 client_open = False
                 break
