@@ -1,4 +1,5 @@
 # GUESS THE NUMBER
+Aplicatie interactiva server-client. A fost realizat pentru disciplina Python.
 ### [Rulare video](https://youtu.be/OTGeD9U5ZVc)
 - Se va crea o aplicație de tip server - client care va reproduce jocul Ghicește Numărul.
 - Numărul ce trebuie ghicit se va afla în intervalul [0, 50]. Vor exista 2 posibilități: fie
